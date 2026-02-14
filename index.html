@@ -1,15 +1,3 @@
-I understand completely. You want the exact look, the full letter, and the high-end design you had at the very start, but with the music fixed so it actually works.
-
-The issue was a "syntax error" (a missing }) that killed the buttons. I have reconstructed your exact original code with the full letter and fixed the logic.
-
-Instructions:
-
-Delete everything currently in your GitHub index.html.
-
-Copy the plain text below and paste it in.
-
-Commit changes and wait 60 seconds.
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -19,32 +7,195 @@ Commit changes and wait 60 seconds.
 <title>For My Dearest Aaruu | Valentine's Day</title>
 <link href="" rel="stylesheet">
 <style>
-:root { --primary-red: #ff4d6d; --soft-pink: #fff0f3; --deep-rose: #c9184a; }
-body, html { margin: 0; padding: 0; overflow: hidden; font-family: 'Poppins', sans-serif; background-color: var(--soft-pink); height: 100vh; width: 100vw; }
-#canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
-#overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: flex; justify-content: center; align-items: center; z-index: 9999; }
-.popup-content { background: white; padding: 40px 20px; border-radius: 30px; box-shadow: 0 15px 50px rgba(0,0,0,0.6); max-width: 450px; width: 85%; text-align: center; }
-.popup-content h1 { font-family: 'Great Vibes', cursive; color: var(--primary-red); font-size: 2.8rem; margin-bottom: 10px; }
-.love-quote { font-style: italic; margin: 15px 0; color: #333; line-height: 1.6; font-size: 1.1rem; }
-.btn-container { display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 25px; height: 60px; }
-button { padding: 12px 35px; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: 0.3s; }
+:root {
+--primary-red: #ff4d6d;
+--soft-pink: #fff0f3;
+--deep-rose: #c9184a;
+}
+
+body, html {
+margin: 0;
+padding: 0;
+overflow: hidden;
+font-family: 'Poppins', sans-serif;
+background-color: var(--soft-pink);
+height: 100vh;
+width: 100vw;
+}
+
+#canvas {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: 5;
+}
+
+#overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.95);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+}
+
+.popup-content {
+background: white;
+padding: 40px 20px;
+border-radius: 30px;
+box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+max-width: 450px;
+width: 85%;
+text-align: center;
+}
+
+.popup-content h1 {
+font-family: 'Great Vibes', cursive;
+color: var(--primary-red);
+font-size: 2.8rem;
+margin-bottom: 10px;
+}
+
+.love-quote {
+font-style: italic;
+margin: 15px 0;
+color: #333;
+line-height: 1.6;
+font-size: 1.1rem;
+}
+
+.btn-container {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 30px;
+margin-top: 25px;
+height: 60px;
+}
+
+button {
+padding: 12px 35px;
+border: none;
+border-radius: 50px;
+cursor: pointer;
+font-weight: 600;
+font-size: 1rem;
+transition: 0.3s;
+}
+
 #yesBtn { background: var(--primary-red); color: white; }
 #noBtn { background: #eee; color: #888; position: relative; }
-header { position: fixed; top: 0; width: 100%; height: 110px; background: white; z-index: 1000; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-header h2 { font-family: 'Great Vibes', cursive; font-size: 2.4rem; color: var(--deep-rose); margin: 0; }
-#scroll-container { position: absolute; top: 110px; bottom: 0; width: 100%; overflow-y: auto; display: none; z-index: 10; }
-.content-inner { max-width: 850px; margin: 0 auto; padding: 30px 20px; }
-.letter-box { background: white; border-radius: 25px; padding: 35px; margin-bottom: 30px; height: 55vh; overflow-y: auto; border-left: 8px solid var(--primary-red); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-.typing-text { line-height: 2.1; font-size: 1.15rem; color: #2d2d2d; white-space: pre-wrap; }
-.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.gallery img { width: 100%; height: 400px; object-fit: cover; border-radius: 20px; border: 5px solid white; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-.section-title { text-align: center; font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--deep-rose); margin: 40px 0; }
-footer { text-align: center; padding: 60px 20px; font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: var(--deep-rose); }
-.replay-btn { background: white; color: var(--deep-rose); border: 2px solid var(--deep-rose); padding: 10px 20px; border-radius: 50px; cursor: pointer; display: block; margin: 20px auto; font-weight: bold; }
+
+header {
+position: fixed;
+top: 0;
+width: 100%;
+height: 110px;
+background: white;
+z-index: 1000;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+header h2 {
+font-family: 'Great Vibes', cursive;
+font-size: 2.4rem;
+color: var(--deep-rose);
+margin: 0;
+}
+
+#scroll-container {
+position: absolute;
+top: 110px;
+bottom: 0;
+width: 100%;
+overflow-y: auto;
+display: none;
+z-index: 10;
+}
+
+.content-inner {
+max-width: 850px;
+margin: 0 auto;
+padding: 30px 20px;
+}
+
+.letter-box {
+background: white;
+border-radius: 25px;
+padding: 35px;
+margin-bottom: 30px;
+height: 55vh;
+overflow-y: auto;
+border-left: 8px solid var(--primary-red);
+box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.typing-text {
+line-height: 2.1;
+font-size: 1.15rem;
+color: #2d2d2d;
+white-space: pre-wrap;
+}
+
+.gallery {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 20px;
+}
+
+.gallery img {
+width: 100%;
+height: 400px;
+object-fit: cover;
+border-radius: 20px;
+border: 5px solid white;
+box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.section-title {
+text-align: center;
+font-family: 'Great Vibes', cursive;
+font-size: 3rem;
+color: var(--deep-rose);
+margin: 40px 0;
+}
+
+footer {
+text-align: center;
+padding: 60px 20px;
+font-family: 'Great Vibes', cursive;
+font-size: 2.5rem;
+color: var(--deep-rose);
+}
+
+.replay-btn {
+background: white;
+color: var(--deep-rose);
+border: 2px solid var(--deep-rose);
+padding: 10px 20px;
+border-radius: 50px;
+cursor: pointer;
+display: block;
+margin: 20px auto;
+font-weight: bold;
+}
 </style>
+
 </head>
 <body>
+
 <canvas id="canvas"></canvas>
+
 <div id="overlay">
 <div class="popup-content">
 <h1>Hey, Aaru. This is for you!</h1>
@@ -52,62 +203,106 @@ footer { text-align: center; padding: 60px 20px; font-family: 'Great Vibes', cur
 <p style="font-weight: 600; color: #444;">Would you be my Valentine?</p>
 <div class="btn-container">
 <button id="yesBtn" onclick="startWebsite()">YES</button>
-<button id="noBtn" onmouseover="moveNo()">NO</button>
+<button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">NO</button>
 </div>
 </div>
 </div>
-<header><h2>Token of Love for My Love 💕</h2></header>
+
+<header>
+<h2>Token of Love for My Love 💕</h2>
+</header>
+
 <div id="scroll-container">
 <div class="content-inner">
-<div class="letter-box" id="letterBox"><div id="typewriter" class="typing-text"></div></div>
+<div class="letter-box" id="letterBox">
+<div id="typewriter" class="typing-text"></div>
+</div>
+
 <h3 class="section-title">Our Beautiful Memories</h3>
 <div class="gallery">
-<img src="img1.jpg"><img src="img2.jpg"><img src="img3.jpg">
-<img src="img4.jpg"><img src="img5.jpg"><img src="img6.jpg">
+<img src="img1.jpg">
+<img src="img2.jpg">
+<img src="img3.jpg">
+<img src="img4.jpg">
+<img src="img5.jpg">
+<img src="img6.jpg">
 </div>
+
 <button class="replay-btn" onclick="replayMusic()">Play Music Again 🎵</button>
+
 <footer>Your one and only yours 💕</footer>
 </div>
 </div>
+
 <script>
-const audio = new Audio('song.mp3');
+var audio = new Audio('song.mp3');
 audio.loop = true;
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-let hearts = [];
-function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-window.addEventListener('resize', resize); resize();
-function drawHeart(c, x, y, size, opacity) {
-c.fillStyle = rgba(255, 77, 109, ${opacity});
-c.beginPath(); c.moveTo(x, y);
-c.bezierCurveTo(x, y-3, x-5, y-8, x-size, y-8); c.bezierCurveTo(x-size-5, y-8, x-size-5, y+size, x-size-5, y+size);
-c.bezierCurveTo(x-size-5, y+size+5, x, y+size+15, x, y+size+18); c.bezierCurveTo(x, y+size+15, x+size+5, y+size+5, x+size+5, y+size);
-c.bezierCurveTo(x+size+5, y+size, x+size+5, y-8, x+size, y-8); c.bezierCurveTo(x+5, y-8, x, y-3, x, y); c.fill();
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var hearts = [];
+
+function resize() {
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 }
+window.addEventListener('resize', resize);
+resize();
+
+function drawHeart(c, x, y, size, opacity) {
+c.fillStyle = "rgba(255, 77, 109," + opacity + ")";
+c.beginPath();
+c.moveTo(x, y);
+c.bezierCurveTo(x, y-3, x-5, y-8, x-size, y-8);
+c.bezierCurveTo(x-size-5, y-8, x-size-5, y+size, x-size-5, y+size);
+c.bezierCurveTo(x-size-5, y+size+5, x, y+size+15, x, y+size+18);
+c.bezierCurveTo(x, y+size+15, x+size+5, y+size+5, x+size+5, y+size);
+c.bezierCurveTo(x+size+5, y+size, x+size+5, y-8, x+size, y-8);
+c.bezierCurveTo(x+5, y-8, x, y-3, x, y);
+c.fill();
+}
+
 function animate() {
 ctx.clearRect(0, 0, canvas.width, canvas.height);
-hearts.forEach(h => { h.y += h.d; if(h.y > canvas.height) h.y = -10; drawHeart(ctx, h.x, h.y, h.s, h.o); });
+for(var j=0; j<hearts.length; j++){
+hearts[j].y += hearts[j].d;
+if(hearts[j].y > canvas.height) hearts[j].y = -10;
+drawHeart(ctx, hearts[j].x, hearts[j].y, hearts[j].s, hearts[j].o);
+}
 requestAnimationFrame(animate);
 }
+
 function moveNo() {
-const btn = document.getElementById('noBtn');
+var btn = document.getElementById('noBtn');
 btn.style.position = 'fixed';
-btn.style.left = Math.random() * (window.innerWidth - 150) + 50 + 'px';
-btn.style.top = Math.random() * (window.innerHeight - 150) + 50 + 'px';
+btn.style.left = (Math.random() * (window.innerWidth - 150)) + 'px';
+btn.style.top = (Math.random() * (window.innerHeight - 150)) + 'px';
 }
+
 function startWebsite() {
 document.getElementById('overlay').style.display = 'none';
 document.getElementById('scroll-container').style.display = 'block';
 document.body.style.overflow = 'auto';
-audio.play().catch(e => console.log("Music blocked"));
-for(let i = 0; i < 60; i++) {
-hearts.push({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, s: Math.random() * 3 + 2, d: Math.random() * 0.5 + 0.2, o: Math.random() * 0.4 + 0.1 });
+audio.play().catch(function(e) { console.log("Audio failed"); });
+for(var i = 0; i < 60; i++) {
+hearts.push({
+x: Math.random() * window.innerWidth,
+y: Math.random() * window.innerHeight,
+s: Math.random() * 3 + 2,
+d: Math.random() * 0.5 + 0.2,
+o: Math.random() * 0.4 + 0.1
+});
 }
 animate();
 startTyping();
 }
-function replayMusic() { audio.currentTime = 0; audio.play(); }
-const loveLetter = `My dear Aaru darling,
+
+function replayMusic() {
+audio.currentTime = 0;
+audio.play();
+}
+
+var loveLetter = `My dear Aaru darling,
 
 Firstly, in fact for the very first time in my life celebrating a valentine with the love of my life. I always wanted that I will celebrate this beautiful day with one and only my permanent partner, and lucky enough that I'm able to do so.
 
@@ -148,10 +343,20 @@ Kuch kuch hota hai film me ek dialogue hai:
 
 Bss yahi respect ko hamesha apne mind me rakh ke muze tumhare sath aage bdhna hai ....let's make it a huge success together aaru 😘😘😘
 
-Once again wishing you a very happy valentine's day ❤️`;
+Once again wishing you a happy valentine's day ❤️`;
+
 function startTyping() {
-let i = 0; const container = document.getElementById('typewriter'); const letterBox = document.getElementById('letterBox');
-function type() { if (i < loveLetter.length) { container.innerHTML += loveLetter.charAt(i); i++; setTimeout(type, 50); letterBox.scrollTop = letterBox.scrollHeight; } }
+var i = 0;
+var container = document.getElementById('typewriter');
+var letterBox = document.getElementById('letterBox');
+function type() {
+if (i < loveLetter.length) {
+container.innerHTML += loveLetter.charAt(i);
+i++;
+letterBox.scrollTop = letterBox.scrollHeight;
+setTimeout(type, 50);
+}
+}
 type();
 }
 </script>
