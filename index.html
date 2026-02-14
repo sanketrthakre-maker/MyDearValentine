@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Dearest Aaruu | Valentine's Day</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+--primary-red: #ff4d6d;
+--soft-pink: #fff0f3;
+--deep-rose: #c9184a;
+}
+
+body, html {
+margin: 0;
+padding: 0;
+overflow: hidden; 
+font-family: 'Poppins', sans-serif;
+background-color: var(--soft-pink);
+height: 100vh;
+width: 100vw;
+}
+
+/* Background Heart Rain */
+#canvas {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: 5;
+}
+
+/* Popup Overlay */
+#overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.95);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+}
+
+.popup-content {
+background: white;
+padding: 40px 20px;
+border-radius: 30px;
+box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+max-width: 450px;
+width: 85%;
+text-align: center;
+}
+
+.popup-content h1 {
+font-family: 'Great Vibes', cursive;
+color: var(--primary-red);
+font-size: 2.8rem;
+margin-bottom: 10px;
+}
+
+.love-quote {
+font-style: italic;
+margin: 15px 0;
+color: #333;
+line-height: 1.6;
+font-size: 1.1rem;
+}
+
+.btn-container {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 30px;
+margin-top: 25px;
+height: 60px;
+}
+
+button {
+padding: 12px 35px;
+border: none;
+border-radius: 50px;
+cursor: pointer;
+font-weight: 600;
+font-size: 1rem;
+transition: 0.3s;
+}
+
+#yesBtn { background: var(--primary-red); color: white; }
+#noBtn { background: #eee; color: #888; position: relative; }
+
+/* Content Layout */
+header {
+position: fixed;
+top: 0;
+width: 100%;
+height: 110px;
+background: white;
+z-index: 1000;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+header h2 {
+font-family: 'Great Vibes', cursive;
+font-size: 2.4rem;
+color: var(--deep-rose);
+margin: 0;
+}
+
+#scroll-container {
+position: absolute;
+top: 110px;
+bottom: 0;
+width: 100%;
+overflow-y: auto;
+display: none;
+z-index: 10;
+}
+
+.content-inner {
+max-width: 850px;
+margin: 0 auto;
+padding: 30px 20px;
+}
+
+.letter-box {
+background: white;
+border-radius: 25px;
+padding: 35px;
+margin-bottom: 30px;
+height: 55vh;
+overflow-y: auto;
+border-left: 8px solid var(--primary-red);
+box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.typing-text {
+line-height: 2.1;
+font-size: 1.15rem;
+color: #2d2d2d;
+white-space: pre-wrap;
+}
+
+.gallery {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 20px;
+}
+
+.gallery img {
+width: 100%;
+height: 400px;
+object-fit: cover;
+border-radius: 20px;
+border: 5px solid white;
+box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.section-title {
+text-align: center;
+font-family: 'Great Vibes', cursive;
+font-size: 3rem;
+color: var(--deep-rose);
+margin: 40px 0;
+}
+
+footer {
+text-align: center;
+padding: 60px 20px;
+font-family: 'Great Vibes', cursive;
+font-size: 2.5rem;
+color: var(--deep-rose);
+}
+</style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <div id="overlay">
+        <div class="popup-content">
+            <h1>Good Morning, Aaru!</h1>
+            <p class="love-quote">"When the One you prayed for becomes the one you prayed with... and that one is YOU Aaruu."</p>
+            <p style="font-weight: 600; color: #444;">Would you be my Valentine?</p>
+            <div class="btn-container">
+                <button id="yesBtn" onclick="startWebsite()">YES</button>
+                <button id="noBtn" onmouseover="moveNo()">NO</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="music-holder"></div>
+
+    <header>
+        <h2>Token of Love for My Love 💕</h2>
+    </header>
+
+    <div id="scroll-container">
+        <div class="content-inner">
+            <div class="letter-box" id="letterBox">
+                <div id="typewriter" class="typing-text"></div>
+            </div>
+
+            <h3 class="section-title">Our Beautiful Memories</h3>
+            <div class="gallery">
+                <img src="img1.jpg">
+                <img src="img2.jpg">
+                <img src="img3.jpg">
+                <img src="img4.jpg">
+                <img src="img5.jpg">
+		<img src="img6.jpg">
+            </div>
+
+            <footer>Your one and only yours 💕</footer>
+        </div>
+    </div>
+
+<script>
+    // Ensure popup is visible even if other scripts take time
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('overlay').style.display = 'flex';
+    });
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let hearts = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function drawHeart(c, x, y, size, opacity) {
+        c.fillStyle = `rgba(255, 77, 109, ${opacity})`;
+        c.beginPath();
+        c.moveTo(x, y);
+        c.bezierCurveTo(x, y-3, x-5, y-8, x-size, y-8);
+        c.bezierCurveTo(x-size-5, y-8, x-size-5, y+size, x-size-5, y+size);
+        c.bezierCurveTo(x-size-5, y+size+5, x, y+size+15, x, y+size+18);
+        c.bezierCurveTo(x, y+size+15, x+size+5, y+size+5, x+size+5, y+size);
+        c.bezierCurveTo(x+size+5, y+size, x+size+5, y-8, x+size, y-8);
+        c.bezierCurveTo(x+5, y-8, x, y-3, x, y);
+        c.fill();
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hearts.forEach(h => {
+            h.y += h.d;
+            if(h.y > canvas.height) h.y = -10;
+            drawHeart(ctx, h.x, h.y, h.s, h.o);
+        });
+        requestAnimationFrame(animate);
+    }
+
+    function moveNo() {
+        const btn = document.getElementById('noBtn');
+        btn.style.position = 'fixed';
+        const x = Math.random() * (window.innerWidth - 150) + 50;
+        const y = Math.random() * (window.innerHeight - 150) + 50;
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+
+    function startWebsite() {
+        // Hide overlay and allow scrolling
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('scroll-container').style.display = 'block';
+        document.body.style.overflow = 'auto';
+
+        // Play Music by injecting iframe (Bypasses most browser blocks)
+        document.getElementById('music-holder').innerHTML = `
+            <iframe width="0" height="0" src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1" frameborder="0" allow="autoplay"></iframe>
+        `;
+
+        // Start Heart Rain
+        for(let i = 0; i < 60; i++) {
+            hearts.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                s: Math.random() * 3 + 2,
+                d: Math.random() * 0.5 + 0.2,
+                o: Math.random() * 0.4 + 0.1
+            });
+        }
+        animate();
+        startTyping();
+    }
+
+    const loveLetter = `My dear Aaru darling,
+
+Firstly, in fact for the very first time in my life celebrating a valentine with the love of my life. I always wanted that I will celebrate this beautiful day with one and only my permanent partner, and lucky enough that I'm able to do so.
+
+Me khub bekaar aahe in terms of expressing love or emotions bt just believe me I love you bohot zada from 7 dec 1 pm onwards... waise toh profile dekh kr hi I was impressed and tumse first time milke tu mere dil ko aisa bha gye ki bsss.. ufff.. ek baar shyad dekha hoga bss aur baat toh kiya bhi nahi still I decided ki yes this is the one who compliments me in every aspect.
+
+Don't think ki I directly said yes. I said it on the basis of knowing all the facts about you which I felt was enough at that moment to go ahead and of course the confidence that our family member gave me. It was needed without talking without giving some hints in that meeting how do we move forward.
+
+Then on Dec 8 afternoon when you send follow request on insta I was working in office my phone gets lights up and I saw Arpita sends to follow requests. I shivered for some time it always a goosebumps moment for me then I initiated talk and wo aise initiate hua ki humne within a span of 1 week humare end pe we concluded saying yes to each other.
+
+This one week was very special to me.. filled with all butterflies moments..
+
+Then your family came exactly one week after the next Sunday, yaha unka chl raha tha baatein and waha insta pe mai hi tumko updates de raha that felt me like it's kind of laila majnu made for each other.
+
+I have already told you multiple times how much respect I have for you your family you guys are extraordinary when it comes to family, was very much impressed with everyone bt at the same time muze confidence nahi tha uss din ki whether I was able to impress your family or not.
+
+Still the day and interaction went well and last statement given by ishwar mamaji before leaving was "Rajendra sarva thik aahe pn ek da Arpita la vicharla lagel Aamhi Thursday paryanta sagtoh."
+
+And ghari gelya war within 1 hourch phone aala ki next day tumchya kade yaycha aahe...
+
+This moment gave confidence to me, mai phir se happy hua and was very excited for next day. Nakki zhala naral pan zhala... had beautiful roka at your place. How beautifully you guys hosted us wow sab bohot chu gya. Aur sabse zada kuch chu gaya tha wo tha tum lemon yellow saree me with simplicity presenting yourself the way I actually like. I just was falling in love more and more with each moment.
+
+Then rest is history with complete one month all weekend hustle 1feb turned out to be the day when we officially got engaged and tagged as a couple 😍.
+
+From day one till now it was a very beautiful journey so far aaru, let's put in all possible positives in this beautiful bond that we created till now and make it so stronger that there isn't a .00001% of scope of any negatives.
+
+Lets cherish us, our beautiful families, and all the future moment which all are waiting for us together to enjoy, cry, withstand and then again continue.. our love is somewhat different which I feel... it has a perfect blend of loyalty, truness, affectionations, trustworthy, friendship, companionship and willpower to support each other in our ups and lows.
+
+I promised you I will always try to think and do best for us, kahi galat ho jau toh just make me understand and correct me, would appreciate it and work on it.
+
+I would like to thank to you for showing all the trust that you have shown till now keep that as is will never broke it out.
+
+From dec 7 you were, currently you are and future till my last breath, it will be you, you and only you ❤️
+
+Love you alots jaan.
+
+Kuch kuch hota hai film me ek dialogue hai:
+"Mard sirf teen aaurto ke samne zhukta hai... Bt meri liye ab wo 4 hai: Ek durga maa ke samne, Ek apni maa ke samne, Ek apni sasu ma ke samne and ek apni wife ke samne ❤️"
+
+Bss yahi respect ko hamesha apne mind me rakh ke muze tumhare sath aage bdhna hai ....let's make it a huge success together aaru 😘😘😘
+
+Once again wishing you a very happy valentine's day ❤️`;
+
+    function startTyping() {
+        let i = 0;
+        const container = document.getElementById('typewriter');
+        const letterBox = document.getElementById('letterBox');
+        function type() {
+            if (i < loveLetter.length) {
+                container.innerHTML += loveLetter.charAt(i);
+                i++;
+                setTimeout(type, 50); 
+                letterBox.scrollTop = letterBox.scrollHeight;
+            }
+        }
+        type();
+    }
+</script>
+</body>
+</html>
