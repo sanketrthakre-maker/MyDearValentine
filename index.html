@@ -272,16 +272,33 @@ color: var(--deep-rose);
         btn.style.top = y + 'px';
     }
 
-    function startWebsite() {
-        // Hide overlay and allow scrolling
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('scroll-container').style.display = 'block';
-        document.body.style.overflow = 'auto';
+    const audio = new Audio('song.mp3');
+audio.loop = true;
 
-        // Play Music by injecting iframe (Bypasses most browser blocks)
-        document.getElementById('music-holder').innerHTML = `
-            <iframe width="0" height="0" src="https://www.youtube.com/embed/2Vv-BfVoq4g?autoplay=1" frameborder="0" allow="autoplay"></iframe>
-        `;
+function startWebsite() {
+document.getElementById('overlay').style.display = 'none';
+document.getElementById('scroll-container').style.display = 'block';
+document.body.style.overflow = 'auto';
+
+audio.play().catch(e => console.log("Audio failed"));
+
+for(let i = 0; i < 60; i++) {
+hearts.push({
+x: Math.random() * window.innerWidth,
+y: Math.random() * window.innerHeight,
+s: Math.random() * 3 + 2,
+d: Math.random() * 0.5 + 0.2,
+o: Math.random() * 0.4 + 0.1
+});
+}
+animate();
+startTyping();
+}
+
+function replayMusic() {
+audio.currentTime = 0;
+audio.play();
+}
 
         // Start Heart Rain
         for(let i = 0; i < 60; i++) {
@@ -358,4 +375,5 @@ Once again wishing you a very happy valentine's day ❤️`;
 </body>
 
 </html>
+
 
